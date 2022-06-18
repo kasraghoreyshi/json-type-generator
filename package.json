@@ -12,6 +12,7 @@
 	"activationEvents": [
 		"onCommand:json-type-generator.generateTypesFromUrl",
 		"onLanguage:typecript",
+		"onLanguage:typecriptreact",
 		"onStartupFinished"
 	],
 	"main": "./out/extension.js",
