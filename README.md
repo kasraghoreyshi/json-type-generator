@@ -9,4 +9,5 @@ Hover over any link in a typescript (.ts or .tsx) file and when the popup appear
 ## Configuration
 
 `"json-type-generator.arrayDeclarationAsBrackets": false`
+
 By enabling this setting, arrays will be generated as `T[]` instead of `Array<T>`.
