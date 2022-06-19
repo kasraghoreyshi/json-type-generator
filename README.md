@@ -16,7 +16,7 @@ By enabling this setting, arrays will be generated as `T[]` instead of `Array<T>
 
 By enabling this setting, JSON Type Generator will ask you to enter headers before generating types using the GET method.
 
-`"json-type-generator.askForHeadersInPostRequest": false`
+`"json-type-generator.askForHeadersInPostRequest": true`
 
 By enabling this setting, JSON Type Generator will ask you to enter headers before generating types using the POST method.
 
