@@ -15,8 +15,8 @@ export const convertInputToString = (
 
 export const convertToArrayType = (input: Array<any>): string => {
   const prefersBrackets = vscode.workspace
-    .getConfiguration("arrayDeclarationAsBrackets")
-    .get("Enabled");
+    .getConfiguration()
+    .get("json-type-generator.arrayDeclarationAsBrackets");
 
   if (!input.length) {
     return prefersBrackets ? "any[]" : "Array<any>";
