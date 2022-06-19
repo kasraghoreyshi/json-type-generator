@@ -11,3 +11,12 @@ Hover over any link in a typescript (.ts or .tsx) file and when the popup appear
 `"json-type-generator.arrayDeclarationAsBrackets": false`
 
 By enabling this setting, arrays will be generated as `T[]` instead of `Array<T>`.
+
+`"json-type-generator.askForHeadersInGetRequest": false`
+
+By enabling this setting, JSON Type Generator will ask you to enter headers before generating types using the GET method.
+
+`"json-type-generator.askForHeadersInPostRequest": false`
+
+By enabling this setting, JSON Type Generator will ask you to enter headers before generating types using the POST method.
+
