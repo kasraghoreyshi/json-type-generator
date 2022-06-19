@@ -2,7 +2,7 @@
 	"name": "json-type-generator",
 	"displayName": "JSON Type Generator",
 	"description": "Generates Typescript types for any REST API endpoint or any URL that returns a JSON.",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.68.0"
 	},
