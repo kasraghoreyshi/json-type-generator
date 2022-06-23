@@ -101,10 +101,7 @@ export function activate(context: vscode.ExtensionContext) {
           const line = findLastEmptyLine(urlPosition.line);
 
           await insertAndRevealRange(
-            `type ${defaultTypeName} = ${JSON.stringify(generatedType).replace(
-              /['"\\]/g,
-              ""
-            )}\n\n`,
+            `type ${defaultTypeName} = ${generatedType}\n\n`,
             // The last empty line may include a line featuring a closing curly brace
             // And we want to write to the line after the curly brace, not the curly brace line itself.
             // So we will pass the line number plus one here.

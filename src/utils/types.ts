@@ -7,10 +7,20 @@ export const isObject = (input: any) => {
   return true;
 };
 
+const stringifyObjectWithoutQuotes = (input: Object) => {
+  return JSON.stringify(input)
+    .replace(/["'\\]/g, "")
+    .replace(/([^",{]+):/g, (match, secure) => {
+      const validKeyCharacters = /^[a-z0-9_]+$/i;
+      if (!validKeyCharacters.test(secure)) return `"${secure}":`;
+      return `${secure}:`;
+    });
+};
+
 export const convertInputToString = (
   input: number | string | Object | Array<any>
 ) => {
-  return isObject(input) ? JSON.stringify(input) : input;
+  return isObject(input) ? stringifyObjectWithoutQuotes(input) : input;
 };
 
 export const convertToArrayType = (input: Array<any>): string => {
@@ -23,9 +33,7 @@ export const convertToArrayType = (input: Array<any>): string => {
   }
 
   const inputType = getTypeFromInput(input[0]);
-  return prefersBrackets
-    ? `${convertInputToString(inputType)}[]`
-    : `Array<${convertInputToString(inputType)}>`;
+  return prefersBrackets ? `${inputType}[]` : `Array<${inputType}>`;
 };
 
 export const getTypeFromInput = (
@@ -37,9 +45,11 @@ export const getTypeFromInput = (
 
   if (Array.isArray(input)) return convertToArrayType(input);
 
+  const objectTypes: typeof input = {};
+
   Object.keys(input).map(
-    (key: string) => (input[key] = getTypeFromInput(input[key]))
+    (key: string) => (objectTypes[key] = getTypeFromInput(input[key]))
   );
 
-  return input;
+  return stringifyObjectWithoutQuotes(objectTypes);
 };
