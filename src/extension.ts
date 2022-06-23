@@ -34,6 +34,28 @@ export function activate(context: vscode.ExtensionContext) {
                 'Enter request data as a JSON (Optional) (E.g., {"name": "Alice", "age": 21})',
             });
 
+          const headersInGetRequest = vscode.workspace
+            .getConfiguration()
+            .get("json-type-generator.askForHeadersInGetRequest");
+
+          const headersInPostRequest = vscode.workspace
+            .getConfiguration()
+            .get("json-type-generator.askForHeadersInPostRequest");
+
+          let headers = "{}";
+
+          if (
+            (method === "POST" && headersInPostRequest) ||
+            (method === "GET" && headersInGetRequest)
+          ) {
+            const userInputForHeaders = await vscode.window.showInputBox({
+              placeHolder:
+                'Enter request headers as a JSON (Optional) (E.g., {"Authorization": "Bearer AA11BB22CC33"}',
+            });
+            if (userInputForHeaders?.trim().length)
+              headers = userInputForHeaders;
+          }
+
           progress.report({ increment: 0 });
 
           const incrementProgress = (message: string) => {
@@ -47,12 +69,15 @@ export function activate(context: vscode.ExtensionContext) {
             switch (method) {
               default:
               case "GET":
-                response = await axios.get(url);
+                response = await axios.get(url, {
+                  headers: JSON.parse(headers),
+                });
                 break;
               case "POST":
                 response = await axios.post(
                   url,
-                  requestData ? JSON.parse(requestData) : null
+                  requestData?.trim().length ? JSON.parse(requestData) : null,
+                  { headers: JSON.parse(headers) }
                 );
                 break;
             }
@@ -76,10 +101,7 @@ export function activate(context: vscode.ExtensionContext) {
           const line = findLastEmptyLine(urlPosition.line);
 
           await insertAndRevealRange(
-            `type ${defaultTypeName} = ${JSON.stringify(generatedType).replace(
-              /['"\\]/g,
-              ""
-            )}\n\n`,
+            `type ${defaultTypeName} = ${generatedType}\n\n`,
             // The last empty line may include a line featuring a closing curly brace
             // And we want to write to the line after the curly brace, not the curly brace line itself.
             // So we will pass the line number plus one here.

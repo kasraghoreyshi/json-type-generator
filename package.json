@@ -2,7 +2,7 @@
 	"name": "json-type-generator",
 	"displayName": "JSON Type Generator",
 	"description": "Generates Typescript types for any REST API endpoint or any URL that returns a JSON.",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.68.0"
 	},
@@ -27,19 +27,19 @@
 				"title": "JSON Type Generator",
 				"properties": {
 					"json-type-generator.arrayDeclarationAsBrackets": {
-						"type": "object",
-						"order": 1,
-						"description": "Declare arrays as \"T[]\" instead of \"Array<T>\"",
-						"properties": {
-							"Enabled": {
-								"type": "boolean",
-								"title": "Enabled"
-							}
-						},
-						"additionalProperties": false,
-						"default": {
-							"Enabled": false
-						}
+						"type": "boolean",
+						"description": "Declare arrays as \"T[]\" instead of \"Array<T>\"d",
+						"default": false
+					},
+					"json-type-generator.askForHeadersInGetRequest": {
+						"type": "boolean",
+						"description": "Ask for entering request headers when generating types using the GET method",
+						"default": false
+					},
+					"json-type-generator.askForHeadersInPostRequest": {
+						"type": "boolean",
+						"description": "Ask for entering request headers when generating types using the POST method",
+						"default": true
 					}
 				}
 			}
